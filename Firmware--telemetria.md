@@ -1,4 +1,4 @@
-# Funcionamiento del codigo programada para ESP32
+# Funcionamiento del codigo para ESP32
 En este apartado se explica como se programara el microcontrolador **ESP32** para que converse con los medidores y envíe los datos a nuestra pantalla.
 El codigo se desglosa en tres partes principales
 
@@ -22,7 +22,7 @@ void modoEscuchar(){
 }
 
 ```
-## Parte 2: Procesamiento y ordenamiento de los datos
+## Parte 2: Procesamiento de los datos
 El microcontrolador recibe un montón de datos sin acomodar , esta parte del codigo toma los numeros y los guarda etiquetados en un **JSON**, de forma que cualquiera que lea los datos sabrá para que sirve cada valor.
 ```cpp
 #include <ArduinoJson.h> //libreria que empaqueta los datos ordenados
@@ -46,6 +46,41 @@ void procesarYEnviarDatos(){
   serializeJson(cajaDatos, textoListo); 
 }
 ```
+## Parte 3: Envio de datos al servidor
+Luego de ordenar los datos en la caja Json, se necesia que el ESP32 se conecte a la red y despache la informacion donde sea necesario.
+Se utiliza un protocolo **MQTT** como mensajeria de los datos
 
+```cpp
+#include <WiFi.h> //libreria que permite la conexion del microcontrolador a WiFi
+#include <PubSubClient.h> //libreria que permite el envio de los datos mediante MQTT
 
+// 1. Datos de Red
+const char* NOMBRE_RED = "" ;
+const char* CLAVE_RED = "" ;
 
+// 2. Direccion de servidor central
+const char* SERVIDOR_MQTT = "";
+
+WiFiClient clienteWifi;
+PubSubClient clienteMqtt(clienteWifi);
+
+void conectarRed(){
+  // Busca la conexion si no esta conectado
+  if (WiFi.status() != WL_CONNECTED){
+    Wifi.begin(NOMBRE_RED, CLAVE_RED);
+    while (Wifi.status() != WL_CONNECTED { delay(500); }
+  }
+  // Busca la conexion al servidor de datos
+  if (!clienteMqtt.connected()){
+  clienteMqtt.setServer(SERVIDOR_MQTT, 1883);
+  clienteMqtt.connect("ESP32_Central_Laboratorios");  
+  }
+}
+
+void despacharDatos(char* textoParaEnviar) {
+  conectarRed() //se asegura que la conexion de red este activa
+
+  //envio del texto al canal de la base de datos
+  clienteMqtt.publish("die/laboratorios/macro", textoParaEnviar);
+}
+```
