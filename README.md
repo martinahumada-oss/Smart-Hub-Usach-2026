@@ -9,7 +9,7 @@ La logica es capturar las variables electricas del tablero general del DIE, proc
 ## Interfaz de Datos y Topología de Bus
 Para eliminar ruidos electromagnéticos y cubrir grandes distancias, los medidores se conectan en serie mediante un **Bus RS485 (Modbus-RTU)**. Un único **ESP32 central** lee secuencialmente a todos los medidores del pasillo usando un par de cables trenzados, reduciendo drásticamente los costos de hardware.
 
-## Variables de Telemetría (Carga útil JSON)
+## Variables de telemetra (Carga útil JSON)
 El ESP32 emite cada 5 segundos un paquete de datos en formato JSON hacia el broker MQTT local con las siguientes variables físicas e indicadores calculados:
 
 ### 1. Variables Eléctricas Instantáneas (Metrología Real)
@@ -22,6 +22,6 @@ El ESP32 emite cada 5 segundos un paquete de datos en formato JSON hacia el brok
 * `e_act`: Energía Activa acumulada ($kWh$). Base matemática para las auditorías por bloque horario.
 * `co2_mit`: Huella de Carbono mitigada ($kgCO_2eq$). Calculada automáticamente en el nodo usando el factor de emisión de la matriz eléctrica chilena ($\approx 0.38 \text{ kgCO}_2\text{/kWh}$).
 * `cost_clp`: Costo económico acumulado ($CLP$). Proyección monetaria del consumo basada en la tarifa regulada vigente de la universidad.
-
+ 
 ---
 
