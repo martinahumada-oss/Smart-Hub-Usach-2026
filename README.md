@@ -17,7 +17,6 @@ El ESP32 emite cada 5 segundos un paquete de datos en formato JSON hacia el brok
 * `i_rms`: Corriente consolidada de las tres fases ($A$).
 * `p_act`: Potencia Activa total ($kW$). Registra el consumo real de las máquinas y luminarias en funcionamiento.
 * `p_react`: Potencia Reactiva total ($kVAr$). Monitorea la energía inductiva para evitar penalizaciones en la factura eléctrica.
-* `f_pot`: Factor de Potencia ($\cos \phi$). Variable crítica en los laboratorios de potencia para medir el nivel de ineficiencia de los ensayos.
 
 ### 2. Variables Acumuladas e Indicadores de Impacto
 * `e_act`: Energía Activa acumulada ($kWh$). Base matemática para las auditorías por bloque horario.
