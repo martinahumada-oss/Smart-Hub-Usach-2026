@@ -31,10 +31,10 @@ void procesarYEnviarDatos(){
   //1. Se crea el contenedor .json que guarda los datos de la caja
   StaticJsonDocument<300> cajaDatos;
   //2. Tomamos la informacion entregada por el medidor y se le asigna su etiqueta         correspondiente
-  cajaDatos["voltaje"] = medidor.getResponseBuffer(0x0000);
-  cajaDatos["corriente"] = medidor.getResponseBuffer(0x0008);
-  cajaDatos["potencia"] = medidor.getResponseBuffer(0x0012);
-  cajaDatos["eficiencia"] = medidor.getResponseBuffer(0x001E);
+  cajaDatos["voltaje"] = medidor.getResponseBuffer(0x0000) / 10.0;
+  cajaDatos["corriente"] = medidor.getResponseBuffer(0x0008) / 1000.0;
+  cajaDatos["potencia"] = medidor.getResponseBuffer(0x0012) /1000.0;
+  cajaDatos["eficiencia"] = medidor.getResponseBuffer(0x001E) /100.0;
 
   //3. Obtener los calculos de forma atomatica
   float enegiaTotal = medidor.getResponseBuffer(0x0100) / 10 //Calculo de KiloWatts   por hora acumulador;
