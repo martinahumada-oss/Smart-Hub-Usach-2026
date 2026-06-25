@@ -15,9 +15,9 @@
 #define PIN_CONTROL    4   // DE / RE
 
 // Parametros de red y servidores
-const char* NOMBRE_RED    = "Wi-Fi_DIE_USACH";
-const char* CLAVE_RED     = "ClaveSegura2026";
-const char* SERVIDOR_MQTT = "192.168.1.50"; 
+const char* NOMBRE_RED    = "Wi-Fi";
+const char* CLAVE_RED     = "Clave";
+const char* SERVIDOR_MQTT = ""; 
 const char* TOPICO_ENVIO  = "die/laboratorios/macro";
 
 WiFiClient clienteWifi;
